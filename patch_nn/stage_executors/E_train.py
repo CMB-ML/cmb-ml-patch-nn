@@ -7,14 +7,11 @@ from torch.utils.data import DataLoader
 from omegaconf import DictConfig
 
 from cmbml.core import Split, Asset
-from cmbml.core.asset_handlers import (
-    PyTorchModel, 
-    NumpyMap, 
-    AppendingCsvHandler
-    )
-from cmbml.demo_patch_nn.dataset import TrainCMBPrePatchDataset
-from cmbml.demo_patch_nn.dummy_model import SimpleUNetModel
-from cmbml.demo_patch_nn.stage_executors._pytorch_executor_base import BasePyTorchModelExecutor
+from cmbml.core.asset_handlers import NumpyMap, AppendingCsvHandler
+from cmbml.torch.pytorch_model_handler import PyTorchModel
+from cmbml.torch.pytorch_executor_base import BasePyTorchModelExecutor
+from patch_nn.dataset import TrainCMBPrePatchDataset
+from patch_nn.dummy_model import SimpleUNetModel
 
 
 logger = logging.getLogger(__name__)

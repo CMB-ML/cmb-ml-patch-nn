@@ -4,7 +4,6 @@ from omegaconf import DictConfig
 
 from cmbml.core import Split, Asset
 from cmbml.core.executor_base import BaseStageExecutor
-from cmbml.torch.pytorch_model_handler import PyTorchModel # Import for typing hint
 from cmbml.core.asset_handlers.healpy_map_handler import HealpyMap
 from cmbml.utils.patch_healpix import make_pixel_index_lut
 
@@ -16,7 +15,6 @@ class MakeLutExecutor(BaseStageExecutor):
     def __init__(self, cfg: DictConfig) -> None:
         super().__init__(cfg, stage_str="make_lut")
 
-        out_model_handler: PyTorchModel
         self.out_lut: Asset = self.assets_out["lut"]
         out_lut_handler: HealpyMap
         self.nside = cfg.scenario.nside

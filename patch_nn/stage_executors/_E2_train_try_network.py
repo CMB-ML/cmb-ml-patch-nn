@@ -4,10 +4,11 @@ import torch
 from omegaconf import DictConfig
 
 from cmbml.core import Asset
-from cmbml.core.asset_handlers import Config, PyTorchModel, HealpyMap
+from cmbml.core.asset_handlers import Config, HealpyMap
+from cmbml.torch.pytorch_model_handler import PyTorchModel
+from cmbml.torch.pytorch_executor_base import BasePyTorchModelExecutor
 
-from cmbml.demo_patch_nn.dummy_model import SimpleUNetModel
-from cmbml.demo_patch_nn.stage_executors._pytorch_executor_base import BasePyTorchModelExecutor
+from patch_nn.dummy_model import SimpleUNetModel
 
 
 logger = logging.getLogger(__name__)

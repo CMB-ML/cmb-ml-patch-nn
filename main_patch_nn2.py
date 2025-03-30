@@ -22,7 +22,7 @@ from cmbml.core import (
                       )
 from cmbml.core.A_check_hydra_configs import HydraConfigCheckerExecutor
 from cmbml.sims import MaskCreatorExecutor
-from cmbml.demo_patch_nn import (
+from patch_nn import (
     MakeLutExecutor,
 
     ChoosePatchesExecutor,
@@ -44,21 +44,27 @@ from cmbml.demo_patch_nn import (
     )
 
 from cmbml.analysis import (
+    # ShowSimsPrepExecutor, 
     CommonRealPostExecutor,
-    CommonNNPredPostExecutor,
-    CommonNNShowSimsPostExecutor,
-    CommonCMBNNCSShowSimsPostIndivExecutor,
+    CommonPredPostExecutor,
+    CommonShowSimsPostExecutor,
+    # CommonCMBNNCSPredPostExecutor,
+    # CommonCMBNNCSShowSimsPostExecutor,
+    # CommonCMBNNCSShowSimsPostIndivExecutor,
+    # CMBNNCSShowSimsPredExecutor, 
+    # CMBNNCSShowSimsPostExecutor,
     PixelAnalysisExecutor,
     PixelSummaryExecutor,
-    PixelSummaryFigsExecutor,
-    ConvertTheoryPowerSpectrumExecutor,
-    MakeTheoryPSStats,
-    NNMakePowerSpectrumExecutor,
-    PowerSpectrumAnalysisExecutor,
-    PowerSpectrumSummaryExecutor,
-    PowerSpectrumSummaryFigsExecutor,
-    PostAnalysisPsFigExecutor,
-    ShowOnePSExecutor)
+    # ConvertTheoryPowerSpectrumExecutor,
+    # MakeTheoryPSStats,
+    # CMBNNCSMakePSExecutor,
+    # PixelSummaryFigsExecutor,
+    # PowerSpectrumAnalysisExecutor,
+    # PowerSpectrumSummaryExecutor,
+    # PowerSpectrumSummaryFigsExecutor,
+    # PostAnalysisPsFigExecutor,
+    # ShowOnePSExecutor
+    )
 
 
 logger = logging.getLogger(__name__)
@@ -91,19 +97,19 @@ def run_cmbnncs(cfg):
     pipeline_context.add_pipe(ChoosePatchesExecutor)
 
     # These executors are useful for debugging, but can not be run in the final pipeline as they display figures
-    # pipeline_context.add_pipe(TryShowPatchExecutor)
-    # pipeline_context.add_pipe(TryShowPatchDistExecutor)
+    # pipeline_context.add_pipe(TryShowPatchExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(TryShowPatchDistExecutor)  # Deacivate unless demo
 
     # We find the statistics of the dataset so that we can scale the data to the domain [0,1]
     pipeline_context.add_pipe(FindDatasetStatsSerialExecutor)  # A slower, but more easily understood method
 
     # Preprocessing speeds up the training process by snipping the patches from the maps; 
     #   This pipeline does not use preprocessed data for training.
-    # pipeline_context.add_pipe(PreprocessPatchesExecutor)
+    # pipeline_context.add_pipe(PreprocessPatchesExecutor)  # Deacivate unless demo
 
     # These executors are useful for demonstration/debugging
-    # pipeline_context.add_pipe(TrainingTryDataloaderExecutor)
-    # pipeline_context.add_pipe(TrainingTryNetworkExecutor)
+    # pipeline_context.add_pipe(TrainingTryDataloaderExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(TrainingTryNetworkExecutor)  # Deacivate unless demo
 
     ##########################
     # CLEANING: TRAINING
@@ -114,8 +120,8 @@ def run_cmbnncs(cfg):
     # pipeline_context.add_pipe(TrainingExecutor)  # This is the normal training method, but requires a preprocessed dataset.
 
     # These executors are useful for demonstration/debugging
-    # pipeline_context.add_pipe(PredictTryDataloaderExecutor)
-    # pipeline_context.add_pipe(PredictTryModelLoadExecutor)
+    # pipeline_context.add_pipe(PredictTryDataloaderExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(PredictTryModelLoadExecutor)  # Deacivate unless demo
 
     # Predict the cleaned CMB signal using the trained model
     pipeline_context.add_pipe(PredictExectutor)
@@ -127,25 +133,25 @@ def run_cmbnncs(cfg):
     # Apply to the target (CMB realization)
     pipeline_context.add_pipe(CommonRealPostExecutor)
     # Apply to CMBNNCS's predictions
-    pipeline_context.add_pipe(CommonNNPredPostExecutor)
+    pipeline_context.add_pipe(CommonPredPostExecutor)
     # Show results of cleaning
-    pipeline_context.add_pipe(CommonNNShowSimsPostExecutor)
+    pipeline_context.add_pipe(CommonShowSimsPostExecutor)
 
-    # pipeline_context.add_pipe(PixelAnalysisExecutor)
-    # pipeline_context.add_pipe(PixelSummaryExecutor)
-    # pipeline_context.add_pipe(PixelSummaryFigsExecutor)
+    # pipeline_context.add_pipe(PixelAnalysisExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(PixelSummaryExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(PixelSummaryFigsExecutor)  # Deacivate unless demo
 
     # # # These two do not need to run individually for all models (but they're fast, so it doesn't matter unless you're actively changing them)
-    # pipeline_context.add_pipe(ConvertTheoryPowerSpectrumExecutor)
-    # pipeline_context.add_pipe(MakeTheoryPSStats)
+    # pipeline_context.add_pipe(ConvertTheoryPowerSpectrumExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(MakeTheoryPSStats)  # Deacivate unless demo
 
     # # # # # CMBNNCS's Predictions as Power Spectra Anaylsis
-    # pipeline_context.add_pipe(NNMakePSExecutor)
+    # pipeline_context.add_pipe(NNMakePSExecutor)  # Deacivate unless demo
     # # # pipeline_context.add_pipe(ShowOnePSExecutor)  # Used for debugging; does not require full set of theory ps for simulations
-    # pipeline_context.add_pipe(PSAnalysisExecutor)
-    # pipeline_context.add_pipe(PowerSpectrumSummaryExecutor)
-    # pipeline_context.add_pipe(PowerSpectrumSummaryFigsExecutor)
-    # pipeline_context.add_pipe(PostAnalysisPsFigExecutor)
+    # pipeline_context.add_pipe(PSAnalysisExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(PowerSpectrumSummaryExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(PowerSpectrumSummaryFigsExecutor)  # Deacivate unless demo
+    # pipeline_context.add_pipe(PostAnalysisPsFigExecutor)  # Deacivate unless demo
 
     pipeline_context.prerun_pipeline()
 

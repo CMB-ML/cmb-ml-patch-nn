@@ -22,7 +22,7 @@ from cmbml.core import (
                       )
 from cmbml.core.A_check_hydra_configs import HydraConfigCheckerExecutor
 from cmbml.sims import MaskCreatorExecutor
-from cmbml.demo_patch_nn import (
+from patch_nn import (
     MakeLutExecutor,
     ChoosePatchesExecutor,
     FindDatasetStatsParallelExecutor,
@@ -32,17 +32,26 @@ from cmbml.demo_patch_nn import (
     )
 
 from cmbml.analysis import (
+    # ShowSimsPrepExecutor, 
     CommonRealPostExecutor,
-    CommonNNPredPostExecutor,
-    CommonNNShowSimsPostExecutor,
+    CommonPredPostExecutor,
+    CommonShowSimsPostExecutor,
+    # CommonCMBNNCSPredPostExecutor,
+    # CommonCMBNNCSShowSimsPostExecutor,
+    # CommonCMBNNCSShowSimsPostIndivExecutor,
+    # CMBNNCSShowSimsPredExecutor, 
+    # CMBNNCSShowSimsPostExecutor,
     PixelAnalysisExecutor,
     PixelSummaryExecutor,
-    PixelSummaryFigsExecutor,
-    NNMakePowerSpectrumExecutor,
-    PowerSpectrumAnalysisExecutor,
-    PowerSpectrumSummaryExecutor,
-    PowerSpectrumSummaryFigsExecutor,
-    PostAnalysisPsFigExecutor,
+    # ConvertTheoryPowerSpectrumExecutor,
+    # MakeTheoryPSStats,
+    # CMBNNCSMakePSExecutor,
+    # PixelSummaryFigsExecutor,
+    # PowerSpectrumAnalysisExecutor,
+    # PowerSpectrumSummaryExecutor,
+    # PowerSpectrumSummaryFigsExecutor,
+    # PostAnalysisPsFigExecutor,
+    # ShowOnePSExecutor
     )
 
 
@@ -73,22 +82,22 @@ def run_cmbnncs(cfg):
 
     # Analysis: processing the maps in a common way
     pipeline_context.add_pipe(CommonRealPostExecutor)
-    pipeline_context.add_pipe(CommonNNPredPostExecutor)
+    pipeline_context.add_pipe(CommonPredPostExecutor)
 
     # Analysis: showing the maps (pixel-level result)
-    pipeline_context.add_pipe(CommonNNShowSimsPostExecutor)
+    pipeline_context.add_pipe(CommonShowSimsPostExecutor)
 
     # Analysis: getting & presenting pixel-level statistics
     pipeline_context.add_pipe(PixelAnalysisExecutor)
     pipeline_context.add_pipe(PixelSummaryExecutor)
-    pipeline_context.add_pipe(PixelSummaryFigsExecutor)
+    # pipeline_context.add_pipe(PixelSummaryFigsExecutor)  # Deactivated during repo separation
 
-    # Analysis: generating the power spectra and power spectra statistics
-    pipeline_context.add_pipe(NNMakePowerSpectrumExecutor)
-    pipeline_context.add_pipe(PowerSpectrumAnalysisExecutor)
-    pipeline_context.add_pipe(PowerSpectrumSummaryExecutor)
-    pipeline_context.add_pipe(PowerSpectrumSummaryFigsExecutor)
-    pipeline_context.add_pipe(PostAnalysisPsFigExecutor)
+    # # Analysis: generating the power spectra and power spectra statistics
+    # pipeline_context.add_pipe(NNMakePowerSpectrumExecutor)  # Deactivated during repo separation
+    # pipeline_context.add_pipe(PowerSpectrumAnalysisExecutor)  # Deactivated during repo separation
+    # pipeline_context.add_pipe(PowerSpectrumSummaryExecutor)  # Deactivated during repo separation
+    # pipeline_context.add_pipe(PowerSpectrumSummaryFigsExecutor)  # Deactivated during repo separation
+    # pipeline_context.add_pipe(PostAnalysisPsFigExecutor)  # Deactivated during repo separation
 
     pipeline_context.prerun_pipeline()
 
