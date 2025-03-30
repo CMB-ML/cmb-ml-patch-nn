@@ -1,0 +1,4 @@
+_target_: cmbml.utils.physics_beam.NoBeam
+_partial_: true  # _partial_ is a flag for Hydra. 
+                 #   In this case, NoBeam(lmax=)'s lmax will come 
+                 #   from python code
