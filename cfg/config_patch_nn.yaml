@@ -5,9 +5,9 @@ defaults:
   - pipeline       : assembly_patch_nn
   - scenario       : scenario
   - splits         : all  # If you aren't getting as many results as expected, check n_infer_cap as well
+  - model          : basic_patch_nn
   - model/patches  : healpatch
   - model/analysis : basic_analysis
-  - model/patch_nn : basic_patch_nn
   - model/beam     : patch_nn_beam
   - override hydra/job_logging: custom_log
   - _self_
@@ -15,7 +15,7 @@ defaults:
 # When creating multiple datasets, using interpolation like this may be easier:
 # dataset_name       : ${scenario.map_fields}_${scenario.nside}_${splits.name}
 dataset_name       : CMB-ML_512_1450
-working_dir        : "PatchNN_${model.patch_nn.scaling}_test/"
+working_dir        : "PatchNN_test/"
 fig_model_name     : PatchNN
 hydra:
   run:

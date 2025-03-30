@@ -47,26 +47,26 @@ class TrainingNoPreprocessExecutor(BasePyTorchModelExecutor):
 
         self.nside_patch = cfg.model.patches.nside_patch
 
-        # self.choose_device(cfg.model.patch_nn.train.device)
-        # self.n_epochs   = cfg.model.patch_nn.train.n_epochs
-        # self.batch_size = cfg.model.patch_nn.train.batch_size
+        # self.choose_device(cfg.model.train.device)
+        # self.n_epochs   = cfg.model.train.n_epochs
+        # self.batch_size = cfg.model.train.batch_size
         # self.learning_rate = 0.0002
-        # self.dtype = self.dtype_mapping[cfg.model.patch_nn.dtype]
-        # self.extra_check = cfg.model.patch_nn.train.extra_check
-        # self.checkpoint = cfg.model.patch_nn.train.checkpoint_every
+        # self.dtype = self.dtype_mapping[cfg.model.dtype]
+        # self.extra_check = cfg.model.train.extra_check
+        # self.checkpoint = cfg.model.train.checkpoint_every
 
-        self.dtype         = self.dtype_mapping[cfg.model.patch_nn.dtype]  # TODO: Ensure this is used
+        self.dtype         = self.dtype_mapping[cfg.model.dtype]  # TODO: Ensure this is used
 
-        self.choose_device(cfg.model.patch_nn.train.device)  # See parent class
-        self.batch_size    = cfg.model.patch_nn.train.batch_size
-        self.num_workers   = cfg.model.patch_nn.train.num_loader_workers
-        self.learning_rate = cfg.model.patch_nn.train.learning_rate
-        self.n_epochs      = cfg.model.patch_nn.train.n_epochs
-        self.restart_epoch = cfg.model.patch_nn.train.restart_epoch
-        self.checkpoint    = cfg.model.patch_nn.train.checkpoint_every
-        self.extra_check   = cfg.model.patch_nn.train.extra_check
+        self.choose_device(cfg.model.train.device)  # See parent class
+        self.batch_size    = cfg.model.train.batch_size
+        self.num_workers   = cfg.model.train.num_loader_workers
+        self.learning_rate = cfg.model.train.learning_rate
+        self.n_epochs      = cfg.model.train.n_epochs
+        self.restart_epoch = cfg.model.train.restart_epoch
+        self.checkpoint    = cfg.model.train.checkpoint_every
+        self.extra_check   = cfg.model.train.extra_check
 
-        self.scaling = cfg.model.patch_nn.get("scaling", None)
+        self.scaling = cfg.model.get("scaling", None)
         if self.scaling and self.scaling != "minmax":
             msg = f"Only minmax scaling is supported, not {self.scaling}."
             raise NotImplementedError(msg)

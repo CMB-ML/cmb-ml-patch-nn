@@ -59,7 +59,7 @@ logger = logging.getLogger(__name__)
 
 
 @hydra.main(version_base=None, config_path="cfg", config_name="config_patch_nn")
-def run_cmbnncs(cfg):
+def run(cfg):
     logger.debug(f"Running {__name__} in {__file__}")
 
     log_maker = LogMaker(cfg)
@@ -112,4 +112,4 @@ def run_cmbnncs(cfg):
 
 
 if __name__ == "__main__":
-    run_cmbnncs()
+    run()

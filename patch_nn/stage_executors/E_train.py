@@ -33,16 +33,16 @@ class TrainingExecutor(BasePyTorchModelExecutor):
         in_obs_map_handler: NumpyMap
         in_model_handler: PyTorchModel
 
-        self.dtype         = self.dtype_mapping[cfg.model.patch_nn.dtype]  # TODO: Ensure this is used
+        self.dtype         = self.dtype_mapping[cfg.model.dtype]  # TODO: Ensure this is used
 
-        self.choose_device(cfg.model.patch_nn.train.device)  # See parent class
-        self.batch_size    = cfg.model.patch_nn.train.batch_size
-        self.num_workers   = cfg.model.patch_nn.train.num_loader_workers
-        self.learning_rate = cfg.model.patch_nn.train.learning_rate
-        self.n_epochs      = cfg.model.patch_nn.train.n_epochs
-        self.restart_epoch = cfg.model.patch_nn.train.restart_epoch
-        self.checkpoint    = cfg.model.patch_nn.train.checkpoint_every
-        self.extra_check   = cfg.model.patch_nn.train.extra_check
+        self.choose_device(cfg.model.train.device)  # See parent class
+        self.batch_size    = cfg.model.train.batch_size
+        self.num_workers   = cfg.model.train.num_loader_workers
+        self.learning_rate = cfg.model.train.learning_rate
+        self.n_epochs      = cfg.model.train.n_epochs
+        self.restart_epoch = cfg.model.train.restart_epoch
+        self.checkpoint    = cfg.model.train.checkpoint_every
+        self.extra_check   = cfg.model.train.extra_check
 
     def execute(self) -> None:
         logger.debug(f"Running {self.__class__.__name__} execute()")

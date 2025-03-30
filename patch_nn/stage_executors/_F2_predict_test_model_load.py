@@ -40,8 +40,8 @@ class PredictTryModelLoadExecutor(BasePyTorchModelExecutor):
         # in_dataset_stats_handler: Config
         in_model_handler: PyTorchModel
 
-        self.choose_device(cfg.model.patch_nn.test.device)
-        # self.batch_size = cfg.model.patch_nn.test.batch_size
+        self.choose_device(cfg.model.test.device)
+        # self.batch_size = cfg.model.test.batch_size
         # self.lut = self.in_lut_asset.read()
 
     def execute(self) -> None:
